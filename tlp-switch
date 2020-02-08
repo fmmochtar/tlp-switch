@@ -1,0 +1,45 @@
+#!/bin/bash
+
+PRESET_DIR=/etc/tlp-switch
+TLP_CONFIG_FILE=/etc/default/tlp
+
+# Make sure only root can run our script
+if [ "$(id -u)" != "0" ]; then
+   echo "tlp switcher should be executed as root. terminated." 1>&2
+   exit 1
+else
+
+echo "noodles tlp switcher"
+
+case "$1" in
+'max')
+echo "Switching to maximum battery life mode ..."
+cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
+systemctl restart tlp
+;;
+'bal90')
+echo "Switching to 90% balanced battery mode ..."
+cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
+systemctl restart tlp
+;;
+'bal80')
+echo "Switching to 80% balanced battery mode ..."
+cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
+systemctl restart tlp
+;;
+'safe')
+echo "Switching to 60% healthy battery life mode ..."
+cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
+systemctl restart tlp
+;;
+'custom')
+echo "Switching to custom preset ..."
+cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
+systemctl restart tlp
+;;
+'')
+echo "Usage: $0 [max|bal90|bal80|safe|custom]"
+;;
+esac
+
+fi
