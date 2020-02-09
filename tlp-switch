@@ -37,8 +37,13 @@ echo "Switching to custom preset ..."
 cp $PRESET_DIR/$1 $TLP_CONFIG_FILE
 systemctl restart tlp
 ;;
+'init')
+echo "Creating directories and empty config files ..."
+mkdir $PRESET_DIR/
+touch $PRESET_DIR/{max,bal90,bal80,safe,custom}
+;;
 '')
-echo "Usage: $0 [max|bal90|bal80|safe|custom]"
+echo "Usage: $0 [max|bal90|bal80|safe|custom|init]"
 ;;
 esac
 
